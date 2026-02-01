@@ -113,7 +113,7 @@ const EcosystemFlow: React.FC = () => {
                 <header className="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
                         <h1 className="text-3xl font-black tracking-tight text-slate-800 flex items-center gap-4">
-                            <img src="/logo.png" alt="ERTH Logo" className="w-10 h-10 object-contain" />
+                            <img src="logo.png" alt="ERTH Logo" className="w-10 h-10 object-contain" />
                             ERTH Ecosystem Flywheel
                         </h1>
                         <p className="text-slate-500 font-medium mt-1 uppercase text-[10px] tracking-widest">Two-Axis Value & Operations Matrix</p>
