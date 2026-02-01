@@ -1,0 +1,250 @@
+import React, { useState } from 'react';
+import { 
+  Building2, 
+  Coins, 
+  Settings, 
+  Zap, 
+  ShieldCheck, 
+  Factory, 
+  Lock,
+  Globe,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  Info,
+  Activity
+} from 'lucide-react';
+
+/**
+ * Connector Component: The simplified arrow solution.
+ * Uses CSS borders for lines and Lucide Chevrons for arrowheads.
+ */
+const Connector = ({ direction = 'right', label, className = "" }) => {
+  const isHorizontal = direction === 'right' || direction === 'left';
+  
+  return (
+    <div className={`absolute flex items-center justify-center pointer-events-none ${className}`}>
+      {/* Line Container */}
+      <div className={`relative flex items-center justify-center ${isHorizontal ? 'w-full h-px' : 'h-full w-px'}`}>
+        {/* The Actual Line */}
+        <div className={`absolute border-slate-300 ${isHorizontal ? 'w-full border-t-2' : 'h-full border-l-2'} ${label === 'MRV DATA' ? 'border-dashed' : 'border-solid'}`} />
+        
+        {/* Arrowhead (Icon) */}
+        <div className={`absolute text-slate-400 flex items-center justify-center bg-slate-50 p-0.5 rounded-full
+          ${direction === 'right' ? 'right-0 translate-x-1/2' : ''}
+          ${direction === 'left' ? 'left-0 -translate-x-1/2' : ''}
+          ${direction === 'down' ? 'bottom-0 translate-y-1/2' : ''}
+          ${direction === 'up' ? 'top-0 -translate-y-1/2' : ''}
+        `}>
+          {direction === 'right' && <ChevronRight size={14} strokeWidth={3} />}
+          {direction === 'left' && <ChevronLeft size={14} strokeWidth={3} />}
+          {direction === 'down' && <ChevronDown size={14} strokeWidth={3} />}
+          {direction === 'up' && <ChevronUp size={14} strokeWidth={3} />}
+        </div>
+
+        {/* Label Pill */}
+        {label && (
+          <div className="z-20 px-2 py-1 bg-white border border-slate-100 rounded shadow-sm">
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
+              {label}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const EcosystemFlow = () => {
+  const [hovered, setHovered] = useState(null);
+
+  const modules = {
+    // ROW 1: STRATEGIC / FINANCIAL
+    token: {
+      id: "token",
+      title: "TOKEN LAYER",
+      subtitle: "VALUE CAPTURE",
+      icon: <Coins className="w-5 h-5 text-amber-600" />,
+      desc: "Captures ecosystem value via programmatic buybacks and burns using real SaaS revenue, creating a deflationary floor.",
+      color: "amber",
+      pos: "md:col-start-2 md:row-start-1",
+      items: ["BUYBACK & BURN", "GOVERNANCE", "POL"]
+    },
+    partners: {
+      id: "partners",
+      title: "PARTNERS / LOCKERS",
+      subtitle: "UTILITY & ACCESS",
+      icon: <Lock className="w-5 h-5 text-slate-600" />,
+      desc: "System participants who lock tokens to access premium tiers, discounted services, and governance rights.",
+      color: "slate",
+      pos: "md:col-start-3 md:row-start-1",
+      items: ["STAKING TIERS", "FEE DISCOUNTS"]
+    },
+    // ROW 2: OPERATIONAL / PHYSICAL
+    projects: {
+      id: "projects",
+      title: "PROJECT OWNERS",
+      subtitle: "THE SUPPLY",
+      icon: <Factory className="w-5 h-5 text-emerald-600" />,
+      desc: "The source of truth. Physical facilities providing the verified emissions data that powers the entire credit market.",
+      color: "emerald",
+      pos: "md:col-start-1 md:row-start-2",
+      items: ["WASTE OPS", "BIO PROJECTS"]
+    },
+    opco: {
+      id: "opco",
+      title: "SAAS + MRV OPCO",
+      subtitle: "THE ENGINE",
+      icon: <Settings className="w-5 h-5 text-indigo-600" />,
+      desc: "The software core that automates measurement, reporting, and verification (MRV) to convert raw data into financial value.",
+      color: "indigo",
+      pos: "md:col-start-2 md:row-start-2",
+      items: ["VERIFICATION", "AUTOMATION", "APIS"]
+    },
+    enterprise: {
+      id: "enterprise",
+      title: "ENTERPRISE USERS",
+      subtitle: "THE CAPITAL",
+      icon: <Building2 className="w-5 h-5 text-blue-600" />,
+      desc: "Institutional buyers and corporate users whose cash flow provides the external capital that sustains the token economy.",
+      color: "blue",
+      pos: "md:col-start-3 md:row-start-2",
+      items: ["SUBSCRIPTION FEES", "CREDIT BUYING"]
+    }
+  };
+
+  const colors = {
+    emerald: "bg-emerald-50 border-emerald-200 text-emerald-900",
+    indigo: "bg-indigo-50 border-indigo-200 text-indigo-900",
+    blue: "bg-blue-50 border-blue-200 text-blue-900",
+    amber: "bg-amber-50 border-amber-200 text-amber-900",
+    slate: "bg-slate-50 border-slate-200 text-slate-900"
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-12 font-sans text-slate-900">
+      <div className="max-w-6xl mx-auto">
+        
+        <header className="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-black tracking-tight text-slate-800 flex items-center gap-3">
+              <Globe className="text-indigo-600" strokeWidth={2} />
+              Ecosystem Flywheel
+            </h1>
+            <p className="text-slate-500 font-medium mt-1 uppercase text-[10px] tracking-widest">Two-Axis Value & Operations Matrix</p>
+          </div>
+          <div className="hidden md:flex gap-4 text-[10px] font-bold uppercase tracking-widest">
+            <div className="flex items-center gap-2 px-3 py-1 bg-white rounded-full shadow-sm border border-slate-200">
+              <div className="w-2 h-2 rounded-full bg-emerald-500" /> Supply
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1 bg-white rounded-full shadow-sm border border-slate-200">
+              <div className="w-2 h-2 rounded-full bg-indigo-500" /> Engine
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1 bg-white rounded-full shadow-sm border border-slate-200">
+              <div className="w-2 h-2 rounded-full bg-amber-500" /> Economy
+            </div>
+          </div>
+        </header>
+
+        {/* The Grid Board */}
+        <div className="relative grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-12 md:gap-x-24 md:gap-y-24 p-2">
+          
+          {/* CONNECTORS (Desktop Only) */}
+          <div className="hidden md:block">
+            {/* Project -> OpCo */}
+            <Connector direction="right" label="MRV DATA" className="top-[75%] left-[28%] w-[12%]" />
+            
+            {/* Enterprise -> OpCo */}
+            <Connector direction="left" label="REVENUE" className="top-[75%] left-[60%] w-[12%]" />
+            
+            {/* OpCo -> Token */}
+            <Connector direction="up" label="BUYBACK & BURN" className="top-[45%] left-[50%] h-[15%]" />
+            
+            {/* Token <-> Partners */}
+            <Connector direction="right" className="top-[25%] left-[60%] w-[12%]" />
+
+            {/* Partners -> Enterprise */}
+            <Connector direction="down" label="UTILITY ACCESS" className="top-[45%] left-[83.3%] h-[15%]" />
+          </div>
+
+          {Object.values(modules).map((m) => (
+            <div 
+              key={m.id} 
+              className={`${m.pos} relative z-10 group transition-all duration-300 ${hovered && hovered !== m.id ? 'opacity-40 scale-[0.98]' : 'scale-100'}`}
+              onMouseEnter={() => setHovered(m.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <div className={`h-full p-8 rounded-2xl border-2 shadow-sm flex flex-col transition-all bg-white ${colors[m.color]} hover:shadow-xl hover:border-current relative overflow-visible`}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-2.5 bg-white rounded-xl shadow-inner ring-1 ring-black/5">
+                    {m.icon}
+                  </div>
+                  <Info className={`w-4 h-4 transition-opacity duration-300 ${hovered === m.id ? 'opacity-100 text-current' : 'opacity-20'}`} />
+                </div>
+                
+                <h3 className="font-black text-sm md:text-[13px] uppercase tracking-tighter leading-none mb-1">{m.title}</h3>
+                <p className="text-[9px] opacity-60 font-bold mb-4 uppercase tracking-tight">{m.subtitle}</p>
+
+                <p className="text-[11px] leading-relaxed mb-6 font-medium opacity-80">{m.desc}</p>
+
+                <div className="mt-auto flex flex-col gap-2">
+                  {m.items.map(item => (
+                    <div key={item} className="text-[9px] font-black bg-white/70 px-3 py-1.5 rounded-lg border border-black/5 uppercase tracking-tighter flex items-center justify-between group-hover:bg-white transition-colors">
+                      {item}
+                      <Zap className="w-2.5 h-2.5 opacity-30" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* TOOLTIP PILL */}
+                {hovered === m.id && (
+                  <div className="absolute top-full left-0 right-0 mt-4 bg-slate-900 text-white p-4 rounded-xl shadow-2xl z-50 text-[11px] font-medium leading-relaxed animate-in fade-in slide-in-from-top-2">
+                    <div className="absolute -top-1 w-3 h-3 bg-slate-900 rotate-45 left-8" />
+                    {m.desc}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Informational Footer */}
+        <div className="mt-32 flex flex-col md:flex-row gap-8 items-center justify-center text-center md:text-left border-t border-slate-200 pt-12">
+           <div className="flex-1">
+              <h4 className="font-black text-xs uppercase text-slate-400 tracking-[0.2em] mb-4">Value Flow Logic</h4>
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold text-xs">01</div>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    <span className="font-bold text-slate-800 uppercase">Supply Generation:</span> Raw impact data from projects is ingested and verified by the SaaS engine.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 font-bold text-xs">02</div>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    <span className="font-bold text-slate-800 uppercase">Revenue Recirculation:</span> Enterprise cash flow is used to programmatically buy back and burn tokens.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 font-bold text-xs">03</div>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                    <span className="font-bold text-slate-800 uppercase">Ecosystem Locking:</span> Strategic partners lock tokens to lower operational costs, creating circular demand.
+                  </p>
+                </div>
+              </div>
+           </div>
+           <div className="w-full md:w-64 p-6 bg-slate-900 rounded-2xl text-white shadow-2xl">
+              <Activity className="text-indigo-400 mb-3 w-6 h-6" />
+              <h4 className="text-sm font-black uppercase tracking-tight mb-2">Network Health</h4>
+              <p className="text-[10px] text-slate-400 leading-relaxed uppercase font-bold tracking-wider">
+                This model ensures the token is not a speculative byproduct, but a primary utility driver for the platform's long-term sustainability.
+              </p>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EcosystemFlow;
